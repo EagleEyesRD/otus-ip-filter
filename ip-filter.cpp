@@ -68,6 +68,7 @@ int main()
                 if (stoi(ippart_i1[j]) != stoi(ippart_i2[j]))
                     return stoi(ippart_i1[j]) > stoi(ippart_i2[j]);
             }
+            return true;
         };
 
         sort(ip_pool.begin(), ip_pool.end(), compFunc);
