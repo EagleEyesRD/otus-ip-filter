@@ -57,12 +57,20 @@ int main()
     {
         StoreIp ip_pool;
         
-        sort(ip_pool.begin(), ip_pool.end(), [](const IpStr& ippart_i1, const IpStr& ippart_i2) {
+        for (std::string line; std::getline(std::cin, line);)
+        {
+            IpStr v = split(line, '\t');
+            ip_pool.push_back(split(v.at(0), '.'));
+        }
+        
+        auto compFunc = [](const IpStr& ippart_i1, const IpStr& ippart_i2) {
             for (int j = 0; j < 4; j++) {
                 if (stoi(ippart_i1[j]) != stoi(ippart_i2[j]))
                     return stoi(ippart_i1[j]) > stoi(ippart_i2[j]);
             }
-        });
+        };
+
+        sort(ip_pool.begin(), ip_pool.end(), compFunc);
         show(ip_pool);
 
         auto oneArg = [](const IpStr& ip) {return stoi(ip[0]) == 1; };
@@ -79,7 +87,7 @@ int main()
             return false;
         };
         show(filter(ip_pool, anyArgs));
-        
+
     }
     catch (const std::exception& e)
     {
