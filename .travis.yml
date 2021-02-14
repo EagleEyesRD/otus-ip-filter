@@ -1,12 +1,18 @@
 language: cpp
+compiler: gcc
+
+os: linux
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-7
 before_script:
 - sudo apt-get install libboost-test-dev -y
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 script:
-- export CC=gcc-7
-- export CXX=g++-7
-- cmake --version
 - cmake .
 - cmake --build .
 - cmake --build . --target package
